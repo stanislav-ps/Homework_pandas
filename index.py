@@ -3,8 +3,8 @@ from collections import defaultdict, Counter
 import pandas
 from openpyxl import load_workbook
 
-POPULAR_BROWERS = 7
-POPULAR_GOODS = 7
+NUMBER_OF_POPULAR_BROWERS = 7
+NUMBER_OF_POPULAR_GOODS = 7
 
 
 def make_report(log_file_name, report_template_file_name, report_output_file_name):
@@ -37,8 +37,8 @@ def make_report(log_file_name, report_template_file_name, report_output_file_nam
                 f_goods.append(el)
 
     # Ищем самые популярные браузеры и товары и самые непопулярные
-    most_popular_browsers = Counter(visits_dict).most_common(POPULAR_BROWERS)
-    most_popular_goods = collections.Counter(goods_dict).most_common(POPULAR_GOODS)
+    most_popular_browsers = Counter(visits_dict).most_common(NUMBER_OF_POPULAR_BROWERS)
+    most_popular_goods = collections.Counter(goods_dict).most_common(NUMBER_OF_POPULAR_GOODS)
     most_popular_m_goods = collections.Counter(m_goods).most_common(1)
     temp_less_popular_m_goods = collections.Counter(m_goods).most_common()
     less_popular_m_goods = temp_less_popular_m_goods[:-(len(temp_less_popular_m_goods) + 1):-1][0]
@@ -52,7 +52,7 @@ def make_report(log_file_name, report_template_file_name, report_output_file_nam
         date2 = date1.date()
         number_of_month = int(date2.strftime("%m"))
 
-        for i in range(POPULAR_BROWERS):
+        for i in range(NUMBER_OF_POPULAR_BROWERS):
             if element['Браузер'] == str(most_popular_browsers[i][0]):
                 if str(most_popular_browsers[i][0]) in visits_dict_month:
                     for m in range(0, 11):
@@ -91,7 +91,7 @@ def make_report(log_file_name, report_template_file_name, report_output_file_nam
 
     # Заполняем таблицу по использованию браузеров
     # В этом цикле заполняем популярные браузеры. Количество нормируется константой
-    for i in range(1, POPULAR_BROWERS + 1):
+    for i in range(1, NUMBER_OF_POPULAR_BROWERS + 1):
         int_row = ord('A')
         row = chr(int_row) + str(5 + i - 1)
         ws[row] = str(most_popular_browsers[i - 1][0])
@@ -106,7 +106,7 @@ def make_report(log_file_name, report_template_file_name, report_output_file_nam
 
     # Заполняем таблицу по приобретенным товарам
     # В этом цикле заполняем популярные товаров. Количество нормируется константой
-    for i in range(1, POPULAR_GOODS + 1):
+    for i in range(1, NUMBER_OF_POPULAR_GOODS + 1):
         int_row = ord('A')
         row = chr(int_row) + str(19 + i - 1)
         ws[row] = str(most_popular_goods[i - 1][0])
