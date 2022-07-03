@@ -21,7 +21,6 @@ def get_password(object_list, login):
 
 
 # Читаем файл эксель и результат передаем в переменную excel_data
-# Переменная excel_data имеет тип <class 'pandas.core.frame.DataFrame'>
 excel_data = pandas.read_excel('data.xlsx', sheet_name='users', engine='openpyxl')
 
 # Преобразуем переменную excel_data в словарь с помощью метода to_dict()
